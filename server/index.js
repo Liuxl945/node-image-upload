@@ -1,9 +1,10 @@
-import Koa from 'koa'
-import koaBody from 'koa-body'
-import cors from '@koa/cors'
-import router from './routers/router'
-import consola from 'consola'
-import { CORS_URL } from './config'
+import Koa from "koa"
+import koaBody from "koa-body"
+import cors from "@koa/cors"
+import registerRouter from "./routers/index"
+import consola from "consola"
+import { CORS_URL } from "./config"
+
 
 
 const app = new Koa()
@@ -23,10 +24,11 @@ function start() {
         }
         return CORS_URL[0]
     },
-    allowMethods: ['GET,POST', 'PUT']
+    allowMethods: ["GET,POST", "PUT"]
     }))
-    .use(router.routes())
-    .use(router.allowedMethods())
+    .use(registerRouter())
+    // .use(router.routes())
+    // .use(router.allowedMethods())
     .listen(port, host)
 
     consola.ready({

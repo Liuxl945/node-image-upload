@@ -1,17 +1,18 @@
+import path from "path"
+import Router from "koa-router"
+import { NGINX_ROOT, NGINX_ROOT_URL, API_URL } from "../config"
+import QRCode from "qrcode"
+import sharp from "sharp"
+import { getDate, mkdirs } from "../utils"
 
-import path from 'path'
-import Router from 'koa-router'
-import { NGINX_ROOT, NGINX_ROOT_URL, API_URL } from '../config'
-import QRCode from 'qrcode'
-import sharp from 'sharp'
-import { getDate, mkdirs } from '../utils'
 
 
 const router = new Router()
+router.prefix("/image")
 
-router.post('/uploadImage', async ctx => {
+router.post("/uploadImage", async ctx => {
     let file = ctx.request.files.file
-    let dirname = ctx.request.body.dir || 'avatar' 
+    let dirname = ctx.request.body.dir || "avatar" 
     dirname = `${dirname}/${getDate()}`
     let { width, height } = ctx.request.body
 
@@ -32,20 +33,23 @@ router.post('/uploadImage', async ctx => {
 
     ctx.body = {
         code: 200,
-        message: '图片上传成功',
+        message: "图片上传成功",
         file: `${NGINX_ROOT_URL}/${dirname}/${name}`,
+        root: `${dirname}/${name}`
     }
 })
 
-router.post('/getQrCode', async ctx => {
+router.post("/getQrCode", async ctx => {
     let {
-        imageUrl
+        imageUrl,
+        dirname
     } = ctx.request.body
 
     let qrcodeurl
     
     try{
-        let dirname = 'qrcode' + `/${getDate()}`
+
+        dirname = `${dirname || "avatar"}/${getDate()}`
         let uploadPath = `${NGINX_ROOT}/${dirname}`
         mkdirs(path.resolve(uploadPath))
         let name = `${Number(new Date())}.png`
@@ -55,21 +59,31 @@ router.post('/getQrCode', async ctx => {
             {
                 width: 500,
                 margin:1,
-                errorCorrectionLevel: 'L'
+                errorCorrectionLevel: "L"
             }
         )
         qrcodeurl = `${NGINX_ROOT_URL}/${dirname}/${name}`
 
     }catch (err) {
-        qrcodeurl = ''
+        qrcodeurl = ""
+    }
+    
+    if(qrcodeurl){
+        ctx.body = {
+            code: 200,
+            message: "二维码生成成功",
+            qrcode: qrcodeurl
+        }
+    }else{
+        ctx.body = {
+            code: 200,
+            message: "二维码生成失败",
+            qrcode: qrcodeurl
+        }
     }
 
-    ctx.body = {
-        code: 200,
-        message: '二维码生成成功',
-        qrcode: qrcodeurl
-    }
+    
 })
 
-
-export default router
+module.exports  = router
+// export default router

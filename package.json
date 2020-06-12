@@ -10,10 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^3.0.0",
+    "compose": "^0.1.2",
     "consola": "^2.12.1",
+    "glob": "^7.1.6",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
     "koa-router": "^7.4.0",
+    "koa-send": "^5.0.0",
     "qrcode": "^1.4.4",
     "sharp": "^0.23.2"
   },

@@ -14,30 +14,30 @@ export default {
   name: 'Home',
   methods: {
     async submit() {
-      // let files = this.$refs.inputFile.files[0]
+      let files = this.$refs.inputFile.files[0]
       
-      // if(!files){
-      //   return
-      // }
+      if(!files){
+        return
+      }
 
-      // const formData = new window.FormData()
-      // formData.append('file', new Blob([files]), `${Math.random().toString().slice(3, 5)}.jpg`)
-      // formData.append('dir', 'avatar')
-
-      // let res = await axios({
-      //   url: `http://127.0.0.1:3000/uploadImage/`,
-      //   method: 'post',
-      //   data: formData
-      // })
-
+      const formData = new window.FormData()
+      formData.append('file', new Blob([files]), `${Math.random().toString().slice(3, 5)}.jpg`)
+      formData.append('dir', 'avatar')
 
       let res = await axios({
-        url: `http://127.0.0.1:3000/getQrCode/`,
+        url: `http://127.0.0.1:3000/image/uploadImage/`,
         method: 'post',
-        data: {
-          imageUrl: `G:\\node-image-upload\\upload_image\\2020-06-11`
-        }
+        data: formData
       })
+
+
+      // let res = await axios({
+      //   url: `http://127.0.0.1:3000/image/getQrCode/`,
+      //   method: 'post',
+      //   data: {
+      //     imageUrl: `G:\\node-image-upload\\upload_image\\2020-06-11`
+      //   }
+      // })
 
       console.log(res)
     }

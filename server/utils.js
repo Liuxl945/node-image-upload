@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import fs from "fs"
+import path from "path"
 
 export const getDate = () => {
     let now = new Date()
@@ -9,12 +9,12 @@ export const getDate = () => {
     month++
 
     if (month < 10) {
-        month = '0' + month
+        month = "0" + month
     }
     if (day < 10) {
-        day = '0' + day
+        day = "0" + day
     }
-    return year + '-' + month + '-' + day
+    return year + "-" + month + "-" + day
 }
 
 
