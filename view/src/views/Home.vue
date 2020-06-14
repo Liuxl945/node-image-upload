@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" v-if="qrcode" :src="qrcode">
+    <img alt="Vue logo" v-if="imageUrl" :src="imageUrl">
     <input type="file" ref="inputFile"/>
     <button @click="submit">提交</button>
   </div>
@@ -12,6 +13,12 @@ import axios from "axios"
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      qrcode: undefined,
+      imageUrl: undefined,
+    }
+  },
   methods: {
     async submit() {
       let files = this.$refs.inputFile.files[0]
@@ -25,21 +32,23 @@ export default {
       formData.append('dir', 'avatar')
 
       let res = await axios({
-        url: `http://127.0.0.1:3000/image/uploadImage/`,
+        url: `http://m.yingliyingli.com/image/uploadImage/`,
         method: 'post',
         data: formData
       })
 
+      if(res.data.code === 200){
+        this.imageUrl = res.data.file
+        let data = await axios({
+          url: `http://m.yingliyingli.com/image/getQrCode/`,
+          method: 'post',
+          data: {
+            imageUrl: res.data.file
+          }
+        })
 
-      // let res = await axios({
-      //   url: `http://127.0.0.1:3000/image/getQrCode/`,
-      //   method: 'post',
-      //   data: {
-      //     imageUrl: `G:\\node-image-upload\\upload_image\\2020-06-11`
-      //   }
-      // })
-
-      console.log(res)
+        this.qrcode = data.data.qrcode
+      }
     }
   }
 }

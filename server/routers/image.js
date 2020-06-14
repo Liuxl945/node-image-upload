@@ -55,7 +55,8 @@ router.post("/getQrCode", async ctx => {
         let name = `${Number(new Date())}.png`
 
         await QRCode.toFile(`${uploadPath}/${name}`,
-            `${API_URL}/image_preview?url=${JSON.stringify(imageUrl)}`,
+            // `${API_URL}/image_preview?url=${JSON.stringify(imageUrl)}`,
+            `${imageUrl}`,
             {
                 width: 500,
                 margin:1,

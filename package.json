@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./start.js --watch server"
+    "dev": "nodemon ./start.js --watch server",
+    "pm2": "cross-env NODE_ENV=production pm2 start ./start.js"
   },
   "author": "",
   "license": "ISC",
