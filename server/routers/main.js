@@ -61,6 +61,9 @@ router.get("/getUserInfo", async (ctx)=>{
     ctx.body = data.data
 })
 
+router.get("/gettoken", async ctx => {
+    ctx.body = true
+})
 
 
 router.get("/download", async ctx => {
