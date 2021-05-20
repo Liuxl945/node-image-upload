@@ -1,7 +1,7 @@
 // export const NGINX = "G:/nginx-1.16.0/html" //家里电脑
 
 // export const NGINX_ROOT = "G:\\node-image-upload\\upload_image"  //服务器-公司电脑
-export const NGINX_ROOT = "C:\\Users\\Administrator\\Desktop\\nginx-1.16.0\\html"  //公司电脑
+export const NGINX_ROOT = "C:\\Users\\Administrator\\Desktop\\nginx-1.18.0\\html"  //公司电脑
 export const NGINX_ROOT_URL = "http://static.gzzefu.com"   //服务器
 export const API_URL = "http://localhost:10088"   //测试环境
 
