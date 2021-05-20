@@ -34,15 +34,15 @@ router.get("/earth_submit", async ctx => {
 
 
 router.get("/", async (ctx)=>{
-    let data = await axios({
-        url: "http://h5.nxsound.com/ih5/20_06lslz/ajax_share.php",
-        headers: {
-            referer: 'http://h5.nxsound.com/ih5',
-            origin: 'http://h5.nxsound.com/'
-        }
-    })
-    console.log(data)
-    ctx.body = data.data
+    // let data = await axios({
+    //     url: "http://h5.nxsound.com/ih5/20_06lslz/ajax_share.php",
+    //     headers: {
+    //         referer: 'http://h5.nxsound.com/ih5',
+    //         origin: 'http://h5.nxsound.com/'
+    //     }
+    // })
+    // console.log(data)
+    ctx.body = "get"
 })
 
 router.get("/getUserInfo", async (ctx)=>{
